@@ -26,11 +26,11 @@
     /* Compact Sizing */
     --compact-padding: 4px;
     --compact-margin: 2px;
-    --compact-font-xs: 9px;
-    --compact-font-sm: 10px;
-    --compact-font-md: 11px;
-    --compact-font-lg: 12px;
-    --compact-line-height: 1.1;
+    --compact-font-xs: 11px;
+    --compact-font-sm: 12px;
+    --compact-font-md: 14px;
+    --compact-font-lg: 16px;
+    --compact-line-height: 1.2;
     
     /* Effects */
     --matrix-glow: 0 0 5px var(--matrix-green-bright), 0 0 10px var(--matrix-green-medium);
@@ -615,11 +615,6 @@ body::before {
     line-height: var(--compact-line-height);
 }
 
-.action-buttons {
-    display: flex;
-    gap: 2px;
-    justify-content: center;
-}
 
 /* Input Device - WinAmp Style */
 .input-device {
@@ -691,13 +686,13 @@ body::before {
 
 .input-screen textarea {
     width: 100%;
-    height: 60px;
+    height: 70px;
     background: var(--matrix-black);
     border: 1px inset var(--winamp-button-shadow);
     border-radius: 1px;
-    padding: 3px;
+    padding: 4px;
     font-family: var(--font-matrix);
-    font-size: var(--compact-font-xs);
+    font-size: var(--compact-font-sm);
     color: var(--matrix-green-bright);
     text-shadow: 0 0 1px var(--matrix-green-bright);
     resize: none;
@@ -732,46 +727,172 @@ body::before {
     line-height: 1;
 }
 
-/* Device Controls - Minimal */
+/* Device Controls - Skeumorphic Button */
 .device-controls {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 6px;
     align-items: center;
+    padding: 4px;
+}
+
+/* Main Action Button - Large Skeumorphic Green */
+.main-action-button {
+    width: 60px;
+    height: 35px;
+    background: radial-gradient(ellipse at 30% 30%, 
+        var(--matrix-green-bright), 
+        var(--matrix-green-medium), 
+        var(--matrix-green-dark));
+    border: 2px outset var(--matrix-green-medium);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.3),
+        0 0 8px var(--matrix-green-medium);
+    position: relative;
+    overflow: hidden;
+}
+
+.main-action-button:hover {
+    background: radial-gradient(ellipse at 30% 30%, 
+        #00ff55, 
+        var(--matrix-green-bright), 
+        var(--matrix-green-medium));
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4),
+        0 0 12px var(--matrix-green-bright);
+}
+
+.main-action-button:active {
+    border: 2px inset var(--matrix-green-dark);
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.6),
+        inset 0 2px 4px rgba(0, 0, 0, 0.4),
+        0 0 6px var(--matrix-green-dark);
+    transform: translateY(1px);
+}
+
+.main-action-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: var(--winamp-dark-silver);
+    box-shadow: none;
+}
+
+.button-surface {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+
+.button-label {
+    font-family: var(--font-matrix);
+    font-size: var(--compact-font-sm);
+    font-weight: 700;
+    color: var(--matrix-black);
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+}
+
+/* Status Indicators */
+.status-indicators {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+.indicator {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    padding: 1px 2px;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.indicator.active {
+    opacity: 1;
+}
+
+.indicator-light {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--winamp-dark-silver);
+    border: 1px inset var(--winamp-button-shadow);
+    transition: all 0.3s ease;
+}
+
+.indicator.active .indicator-light {
+    background: var(--matrix-green-bright);
+    box-shadow: 
+        0 0 4px var(--matrix-green-bright),
+        inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    border: 1px outset var(--matrix-green-bright);
+}
+
+.indicator-label {
+    font-family: var(--font-matrix);
+    font-size: var(--compact-font-xs);
+    font-weight: 700;
+    color: var(--matrix-black);
+    letter-spacing: 0.3px;
+}
+
+.indicator.active .indicator-label {
+    color: var(--matrix-black);
+    text-shadow: 0 0 1px var(--matrix-green-bright);
+}
+
+/* Auxiliary Controls - Smaller decorative elements */
+.auxiliary-controls {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-top: 2px;
 }
 
 .control-knob {
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background: var(--winamp-button-face);
+    background: radial-gradient(circle at 30% 30%, 
+        var(--winamp-button-highlight), 
+        var(--winamp-button-face), 
+        var(--winamp-button-shadow));
     border: 1px outset var(--winamp-button-shadow);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .control-slider {
-    width: 20px;
+    width: 16px;
     height: 3px;
     background: var(--winamp-button-face);
     border: 1px inset var(--winamp-button-shadow);
     border-radius: 1px;
+    position: relative;
 }
 
-.control-buttons {
-    display: flex;
-    gap: 1px;
-}
-
-.control-btn {
+.control-slider::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 4px;
     width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--winamp-button-face);
+    height: 5px;
+    background: radial-gradient(circle at 30% 30%, 
+        var(--winamp-button-highlight), 
+        var(--winamp-button-face), 
+        var(--winamp-button-shadow));
+    border-radius: 1px;
     border: 1px outset var(--winamp-button-shadow);
-}
-
-.control-btn.active {
-    background: var(--matrix-green-bright);
-    box-shadow: 0 0 2px var(--matrix-green-bright);
 }
 
 /* Device Bottom - Minimal */

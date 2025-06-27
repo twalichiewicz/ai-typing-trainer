@@ -140,11 +140,6 @@
                                     <div class="detailed-feedback" id="detailedFeedback">
                                         <!-- Feedback will be generated here -->
                                     </div>
-
-                                    <div class="action-buttons">
-                                        <button class="secondary-btn" onclick="tryAgain()">🔄 RETRY</button>
-                                        <button class="primary-btn" onclick="nextScenario()">➡️ NEXT</button>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -177,21 +172,38 @@
                                     <span id="wordCount">0 WORDS</span>
                                     <span id="charCount">0 CHARS</span>
                                 </div>
-                                
-                                <button class="submit-btn" id="submitBtn" onclick="submitPrompt()" disabled>
-                                    🚀 ANALYZE
-                                </button>
                             </div>
                         </div>
                         
                         <!-- Physical controls -->
                         <div class="device-controls">
-                            <div class="control-knob"></div>
-                            <div class="control-slider"></div>
-                            <div class="control-buttons">
-                                <div class="control-btn active"></div>
-                                <div class="control-btn"></div>
-                                <div class="control-btn"></div>
+                            <!-- Main Action Button -->
+                            <div class="main-action-button" id="mainActionButton" onclick="handleMainAction()">
+                                <div class="button-surface">
+                                    <div class="button-label" id="buttonLabel">ANALYZE</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Status Indicators -->
+                            <div class="status-indicators">
+                                <div class="indicator analyze-indicator active" id="analyzeIndicator">
+                                    <div class="indicator-light"></div>
+                                    <div class="indicator-label">ANALYZE</div>
+                                </div>
+                                <div class="indicator next-indicator" id="nextIndicator">
+                                    <div class="indicator-light"></div>
+                                    <div class="indicator-label">NEXT</div>
+                                </div>
+                                <div class="indicator retry-indicator" id="retryIndicator">
+                                    <div class="indicator-light"></div>
+                                    <div class="indicator-label">RETRY</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Small decorative controls -->
+                            <div class="auxiliary-controls">
+                                <div class="control-knob"></div>
+                                <div class="control-slider"></div>
                             </div>
                         </div>
                     </div>

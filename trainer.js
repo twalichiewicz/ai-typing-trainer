@@ -50,8 +50,8 @@ class AITypingTrainer {
         document.getElementById('resultsPanel').style.display = 'none';
         document.getElementById('examplesContainer').style.display = 'none';
         
-        // Update submit button state
-        this.updateSubmitButton();
+        // Update button state to analyze mode
+        updateButtonState('analyze');
         
         // Reset examples toggle
         document.getElementById('examplesToggle').textContent = '👁️ Show Examples';
@@ -244,6 +244,9 @@ class AITypingTrainer {
         // Generate detailed feedback
         this.generateDetailedFeedback(scores, scenario);
         
+        // Update button state to show next/retry options
+        updateButtonState('results');
+        
         // Scroll to results
         document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
     }
@@ -329,7 +332,7 @@ class AITypingTrainer {
         document.getElementById('userPrompt').value = '';
         document.getElementById('resultsPanel').style.display = 'none';
         document.getElementById('liveFeedback').style.display = 'none';
-        this.updateSubmitButton();
+        updateButtonState('analyze');
     }
 
     // Show final training results
@@ -384,8 +387,19 @@ class AITypingTrainer {
     // Update submit button state
     updateSubmitButton() {
         const prompt = document.getElementById('userPrompt').value.trim();
-        const submitBtn = document.getElementById('submitBtn');
-        submitBtn.disabled = prompt.length < 10;
+        const button = document.getElementById('mainActionButton');
+        
+        if (prompt.length < 10) {
+            updateButtonState('disabled');
+        } else {
+            // Check if we're in results mode or analyze mode
+            const resultsPanel = document.getElementById('resultsPanel');
+            if (resultsPanel.style.display === 'block') {
+                updateButtonState('results');
+            } else {
+                updateButtonState('analyze');
+            }
+        }
     }
 
     // Update word and character counts

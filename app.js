@@ -51,23 +51,81 @@ function toggleExamples() {
     }
 }
 
+// Handle main action button press
+function handleMainAction() {
+    const button = document.getElementById('mainActionButton');
+    const buttonLabel = document.getElementById('buttonLabel');
+    const analyzeIndicator = document.getElementById('analyzeIndicator');
+    const nextIndicator = document.getElementById('nextIndicator');
+    const retryIndicator = document.getElementById('retryIndicator');
+    
+    if (analyzeIndicator.classList.contains('active')) {
+        submitPrompt();
+    } else if (nextIndicator.classList.contains('active')) {
+        // In results mode, clicking the main button defaults to NEXT
+        nextScenario();
+    } else if (retryIndicator.classList.contains('active') && !nextIndicator.classList.contains('active')) {
+        // Only retry if next is not available
+        tryAgain();
+    }
+}
+
 // Submit prompt for analysis
 function submitPrompt() {
     const prompt = document.getElementById('userPrompt').value.trim();
     if (!prompt) return;
     
-    // Add loading state
-    const submitBtn = document.getElementById('submitBtn');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = '🔄 Analyzing...';
-    submitBtn.disabled = true;
+    // Add loading state to main button
+    const button = document.getElementById('mainActionButton');
+    const buttonLabel = document.getElementById('buttonLabel');
+    const originalText = buttonLabel.textContent;
+    buttonLabel.textContent = 'ANALYZING...';
+    button.style.opacity = '0.7';
     
     // Simulate analysis delay for better UX
     setTimeout(() => {
         trainer.submitPrompt();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
+        buttonLabel.textContent = originalText;
+        button.style.opacity = '1';
+        
+        // Switch to next/retry mode after analysis
+        updateButtonState('results');
     }, 500);
+}
+
+// Update button state and indicators
+function updateButtonState(state) {
+    const buttonLabel = document.getElementById('buttonLabel');
+    const analyzeIndicator = document.getElementById('analyzeIndicator');
+    const nextIndicator = document.getElementById('nextIndicator');
+    const retryIndicator = document.getElementById('retryIndicator');
+    const button = document.getElementById('mainActionButton');
+    
+    // Reset all indicators
+    analyzeIndicator.classList.remove('active');
+    nextIndicator.classList.remove('active');
+    retryIndicator.classList.remove('active');
+    
+    switch(state) {
+        case 'analyze':
+            analyzeIndicator.classList.add('active');
+            buttonLabel.textContent = 'ANALYZE';
+            button.disabled = false;
+            button.style.opacity = '1';
+            break;
+        case 'results':
+            nextIndicator.classList.add('active');
+            retryIndicator.classList.add('active');
+            buttonLabel.textContent = 'NEXT';
+            button.disabled = false;
+            button.style.opacity = '1';
+            break;
+        case 'disabled':
+            buttonLabel.textContent = 'DISABLED';
+            button.disabled = true;
+            button.style.opacity = '0.5';
+            break;
+    }
 }
 
 // Try current scenario again
@@ -105,13 +163,15 @@ document.addEventListener('keydown', (e) => {
     switch(e.key) {
         case 'n':
         case 'N':
-            if (document.getElementById('resultsPanel').style.display === 'block') {
+            const nextIndicator = document.getElementById('nextIndicator');
+            if (nextIndicator.classList.contains('active')) {
                 nextScenario();
             }
             break;
         case 'r':
         case 'R':
-            if (document.getElementById('resultsPanel').style.display === 'block') {
+            const retryIndicator = document.getElementById('retryIndicator');
+            if (retryIndicator.classList.contains('active')) {
                 tryAgain();
             }
             break;
