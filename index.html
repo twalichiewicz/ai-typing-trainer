@@ -22,8 +22,62 @@
                 <span class="progress-text" id="progressText">Scenario 1 of 10</span>
             </div>
 
-            <!-- Current Scenario -->
-            <div class="scenario-card" id="scenarioCard">
+            <!-- Three Monitor Layout -->
+            <div class="retro-workspace">
+                <!-- Left Monitor: Live Analysis (Vacuum Tube Style) -->
+                <div class="tube-monitor">
+                    <div class="tube-bezel">
+                        <div class="tube-screen">
+                            <div class="tube-content">
+                                <div class="live-feedback" id="liveFeedback">
+                                    <h3>⚡ LIVE ANALYSIS</h3>
+                                    <div class="feedback-metrics">
+                                        <div class="metric">
+                                            <span class="metric-label">SPECIFICITY</span>
+                                            <div class="metric-bar">
+                                                <div class="metric-fill specificity" id="specificityBar"></div>
+                                            </div>
+                                            <span class="metric-score" id="specificityScore">0%</span>
+                                        </div>
+                                        
+                                        <div class="metric">
+                                            <span class="metric-label">CONTEXT</span>
+                                            <div class="metric-bar">
+                                                <div class="metric-fill context" id="contextBar"></div>
+                                            </div>
+                                            <span class="metric-score" id="contextScore">0%</span>
+                                        </div>
+                                        
+                                        <div class="metric">
+                                            <span class="metric-label">CONSTRAINTS</span>
+                                            <div class="metric-bar">
+                                                <div class="metric-fill constraints" id="constraintsBar"></div>
+                                            </div>
+                                            <span class="metric-score" id="constraintsScore">0%</span>
+                                        </div>
+                                        
+                                        <div class="metric">
+                                            <span class="metric-label">OBSERVABILITY</span>
+                                            <div class="metric-bar">
+                                                <div class="metric-fill observability" id="observabilityBar"></div>
+                                            </div>
+                                            <span class="metric-score" id="observabilityScore">0%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tube-base"></div>
+                    </div>
+                </div>
+
+                <!-- Center Monitor: Main CRT (Scenario & Input) -->
+                <div class="crt-monitor">
+                    <div class="crt-bezel">
+                        <div class="crt-screen">
+                            <div class="crt-content">
+                                <!-- Current Scenario -->
+                                <div class="scenario-card" id="scenarioCard">
                 <div class="scenario-header">
                     <h2 id="scenarioTitle">Loading scenario...</h2>
                     <div class="difficulty-badge" id="difficultyBadge">Beginner</div>
@@ -64,84 +118,96 @@
                 </div>
             </div>
 
-            <!-- User Input Area -->
-            <div class="input-section">
-                <h3>📝 Your Prompt</h3>
-                <textarea 
-                    id="userPrompt" 
-                    placeholder="Write your AI prompt here... Be specific, provide context, define constraints, and describe expected outcomes."
-                    rows="6"
-                ></textarea>
-                
-                <div class="input-controls">
-                    <div class="word-count">
-                        <span id="wordCount">0 words</span>
-                        <span id="charCount">0 characters</span>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <button class="submit-btn" id="submitBtn" onclick="submitPrompt()" disabled>
-                        🚀 Analyze Prompt
-                    </button>
                 </div>
-            </div>
 
-            <!-- Real-time Feedback -->
-            <div class="live-feedback" id="liveFeedback" style="display: none;">
-                <h3>⚡ Live Analysis</h3>
-                <div class="feedback-metrics">
-                    <div class="metric">
-                        <span class="metric-label">Specificity</span>
-                        <div class="metric-bar">
-                            <div class="metric-fill specificity" id="specificityBar"></div>
+                <!-- Right Monitor: Score Display -->
+                <div class="score-monitor">
+                    <div class="score-bezel">
+                        <div class="score-screen">
+                            <div class="score-content">
+                                <div class="results-panel" id="resultsPanel" style="display: none;">
+                                    <div class="overall-score">
+                                        <div class="score-circle">
+                                            <div class="score-number" id="overallScore">0%</div>
+                                            <div class="score-label">OVERALL</div>
+                                        </div>
+                                        <div class="score-grade" id="scoreGrade">F</div>
+                                    </div>
+
+                                    <div class="detailed-feedback" id="detailedFeedback">
+                                        <!-- Feedback will be generated here -->
+                                    </div>
+
+                                    <div class="action-buttons">
+                                        <button class="secondary-btn" onclick="tryAgain()">🔄 RETRY</button>
+                                        <button class="primary-btn" onclick="nextScenario()">➡️ NEXT</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <span class="metric-score" id="specificityScore">0%</span>
-                    </div>
-                    
-                    <div class="metric">
-                        <span class="metric-label">Context</span>
-                        <div class="metric-bar">
-                            <div class="metric-fill context" id="contextBar"></div>
-                        </div>
-                        <span class="metric-score" id="contextScore">0%</span>
-                    </div>
-                    
-                    <div class="metric">
-                        <span class="metric-label">Constraints</span>
-                        <div class="metric-bar">
-                            <div class="metric-fill constraints" id="constraintsBar"></div>
-                        </div>
-                        <span class="metric-score" id="constraintsScore">0%</span>
-                    </div>
-                    
-                    <div class="metric">
-                        <span class="metric-label">Observability</span>
-                        <div class="metric-bar">
-                            <div class="metric-fill observability" id="observabilityBar"></div>
-                        </div>
-                        <span class="metric-score" id="observabilityScore">0%</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Results Panel -->
-            <div class="results-panel" id="resultsPanel" style="display: none;">
-                <div class="overall-score">
-                    <div class="score-circle">
-                        <div class="score-number" id="overallScore">0%</div>
-                        <div class="score-label">Overall</div>
+            <!-- Teenage Engineering Style Input Device -->
+            <div class="input-device">
+                <div class="device-body">
+                    <div class="device-top">
+                        <!-- Data cables -->
+                        <div class="data-cables">
+                            <div class="cable cable-1"></div>
+                            <div class="cable cable-2"></div>
+                            <div class="cable cable-3"></div>
+                        </div>
+                        
+                        <!-- Input screen -->
+                        <div class="input-screen">
+                            <h3>📝 PROMPT INPUT TERMINAL</h3>
+                            <textarea 
+                                id="userPrompt" 
+                                placeholder="ENTER AI PROMPT... BE SPECIFIC, PROVIDE CONTEXT, DEFINE CONSTRAINTS..."
+                                rows="6"
+                            ></textarea>
+                            
+                            <div class="input-controls">
+                                <div class="word-count">
+                                    <span id="wordCount">0 WORDS</span>
+                                    <span id="charCount">0 CHARS</span>
+                                </div>
+                                
+                                <button class="submit-btn" id="submitBtn" onclick="submitPrompt()" disabled>
+                                    🚀 ANALYZE
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Physical controls -->
+                        <div class="device-controls">
+                            <div class="control-knob"></div>
+                            <div class="control-slider"></div>
+                            <div class="control-buttons">
+                                <div class="control-btn active"></div>
+                                <div class="control-btn"></div>
+                                <div class="control-btn"></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="score-grade" id="scoreGrade">F</div>
-                </div>
-
-                <div class="detailed-feedback" id="detailedFeedback">
-                    <!-- Feedback will be generated here -->
-                </div>
-
-                <div class="action-buttons">
-                    <button class="secondary-btn" onclick="tryAgain()">🔄 Try Again</button>
-                    <button class="primary-btn" onclick="nextScenario()">➡️ Next Scenario</button>
+                    
+                    <div class="device-bottom">
+                        <div class="device-vents"></div>
+                        <div class="device-logo">TEENAGE ENGINEERING</div>
+                        <div class="device-ports">
+                            <div class="port"></div>
+                            <div class="port"></div>
+                            <div class="port"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
 
             <!-- Final Results -->
             <div class="final-results" id="finalResults" style="display: none;">
