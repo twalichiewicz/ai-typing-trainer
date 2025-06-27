@@ -686,19 +686,26 @@ body::before {
 
 .difficulty-badge {
     padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    font-weight: 500;
-    background: var(--success-color);
-    color: white;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    background: var(--crt-green);
+    color: #000;
+    border: 2px outset var(--crt-green);
+    text-shadow: none;
+    letter-spacing: 1px;
 }
 
 .difficulty-badge.intermediate {
-    background: var(--warning-color);
+    background: var(--crt-amber);
+    border-color: var(--crt-amber);
 }
 
 .difficulty-badge.advanced {
     background: var(--danger-color);
+    border-color: var(--danger-color);
+    color: #fff;
 }
 
 .scenario-context {
@@ -711,14 +718,19 @@ body::before {
 .context-section h3,
 .goal-section h3 {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 0.5rem;
-    color: var(--primary-color);
+    color: var(--crt-amber);
+    font-family: var(--font-mono);
+    text-shadow: 0 0 3px var(--crt-amber);
+    letter-spacing: 1px;
 }
 
 .context-section p,
 .goal-section p {
     color: var(--text-secondary);
+    font-family: var(--font-mono);
+    line-height: 1.4;
 }
 
 /* Examples Toggle */
@@ -828,79 +840,135 @@ body::before {
 }
 
 .submit-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
+    background: linear-gradient(145deg, var(--crt-green), #00cc33);
+    color: #000;
+    border: 2px outset var(--crt-green);
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+    border-radius: 5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
     cursor: pointer;
     transition: all 0.2s ease;
+    text-shadow: none;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
-    background: var(--secondary-color);
+    background: linear-gradient(145deg, #00ff55, var(--crt-green));
     transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.submit-btn:active:not(:disabled) {
+    border: 2px inset var(--crt-green);
+    transform: translateY(1px);
 }
 
 .submit-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background: #333;
+    color: #666;
+    border-color: #666;
 }
 
 /* Live Feedback */
 .live-feedback {
-    background: var(--card-bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 2rem;
-    margin-bottom: 2rem;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .live-feedback h3 {
     margin-bottom: 1.5rem;
-    color: var(--primary-color);
+    color: var(--crt-amber);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    text-shadow: 0 0 5px var(--crt-amber);
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 .feedback-metrics {
     display: grid;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .metric {
     display: grid;
-    grid-template-columns: 100px 1fr 60px;
-    align-items: center;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
 }
 
 .metric-label {
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--crt-amber);
+    text-shadow: 0 0 3px var(--crt-amber);
+    letter-spacing: 1px;
 }
 
 .metric-bar {
-    height: 8px;
-    background: var(--border-color);
-    border-radius: 4px;
+    height: 12px;
+    background: #003300;
+    border: 2px inset #333;
+    border-radius: 2px;
     overflow: hidden;
+    position: relative;
 }
 
 .metric-fill {
     height: 100%;
     transition: width 0.3s ease;
     width: 0%;
+    position: relative;
 }
 
-.metric-fill.specificity { background: #8b5cf6; }
-.metric-fill.context { background: #06b6d4; }
-.metric-fill.constraints { background: #10b981; }
-.metric-fill.observability { background: #f59e0b; }
+.metric-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(255, 255, 255, 0.1) 2px,
+        rgba(255, 255, 255, 0.1) 4px
+    );
+}
+
+.metric-fill.specificity { 
+    background: var(--crt-amber);
+    box-shadow: 0 0 10px var(--crt-amber);
+}
+.metric-fill.context { 
+    background: var(--crt-blue);
+    box-shadow: 0 0 10px var(--crt-blue);
+}
+.metric-fill.constraints { 
+    background: var(--crt-green);
+    box-shadow: 0 0 10px var(--crt-green);
+}
+.metric-fill.observability { 
+    background: var(--secondary-color);
+    box-shadow: 0 0 10px var(--secondary-color);
+}
 
 .metric-score {
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-align: right;
+    font-weight: 700;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    color: var(--crt-green);
+    text-shadow: 0 0 3px var(--crt-green);
+    text-align: center;
+    letter-spacing: 1px;
 }
 
 /* Results Panel */
@@ -998,31 +1066,49 @@ body::before {
 
 .primary-btn, .secondary-btn {
     padding: 0.75rem 1.5rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+    border-radius: 5px;
+    font-weight: 700;
+    font-family: var(--font-mono);
     cursor: pointer;
     transition: all 0.2s ease;
-    border: none;
+    letter-spacing: 1px;
+    text-shadow: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
 }
 
 .primary-btn {
-    background: var(--primary-color);
-    color: white;
+    background: linear-gradient(145deg, var(--crt-green), #00cc33);
+    color: #000;
+    border: 2px outset var(--crt-green);
 }
 
 .primary-btn:hover {
-    background: var(--secondary-color);
+    background: linear-gradient(145deg, #00ff55, var(--crt-green));
     transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.primary-btn:active {
+    border: 2px inset var(--crt-green);
+    transform: translateY(1px);
 }
 
 .secondary-btn {
-    background: var(--border-color);
-    color: var(--text-primary);
+    background: linear-gradient(145deg, #555, #333);
+    color: var(--crt-amber);
+    border: 2px outset #555;
 }
 
 .secondary-btn:hover {
-    background: var(--neutral-color);
-    color: white;
+    background: linear-gradient(145deg, #666, #444);
+    color: var(--crt-green);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.secondary-btn:active {
+    border: 2px inset #555;
+    transform: translateY(1px);
 }
 
 /* Final Results */
